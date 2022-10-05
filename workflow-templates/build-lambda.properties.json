@@ -1,0 +1,13 @@
+{
+    "name": "Turtle Organization Workflow",
+    "description": "Turtle Organization Generic CI build lambda workflow.",
+    "iconName": "example-icon",
+    "categories": [
+        "Go"
+    ],
+    "filePatterns": [
+        "package.json$",
+        "^Dockerfile",
+        ".*\\.md$"
+    ]
+}
