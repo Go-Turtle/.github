@@ -1,0 +1,13 @@
+{
+    "name": "Turtle Organization Workflow",
+    "description": "Turtle Organization Generic Workflow that builds the Seafarer, ShipOwner and Operator backends.",
+    "iconName": "example-icon",
+    "categories": [
+        "Go"
+    ],
+    "filePatterns": [
+        "package.json$",
+        "^Dockerfile",
+        ".*\\.md$"
+    ]
+}
