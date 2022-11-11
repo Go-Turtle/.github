@@ -1,2 +1,2 @@
 # .github
-Stores our workflow templates
+Stores our generic workflow templates
