@@ -1,0 +1,9 @@
+{
+
+  "allowed-files": [
+    [
+      "go.mod", "go.sum"    // Changed only go.mod, go.sum files
+    ]
+    
+  ]
+}
