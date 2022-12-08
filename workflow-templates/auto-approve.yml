@@ -1,0 +1,27 @@
+on:
+  workflow_call:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    name: Test changed-files
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+          
+      - name: Get changed files in the go.mod folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v34
+        with:
+          files: |
+            go.mod/**
+
+      - name: Run step if any file(s) in the go.mod folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the go.mod folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
+      
+      - name: Auto-approve PR with only go.sum changes
+        
