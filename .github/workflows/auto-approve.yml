@@ -21,7 +21,10 @@ jobs:
         run: |
           echo "One or more files in the go.mod folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-
+      
+      - name: Run build   # Run build of the application
+        run: go build ./...
+        
   auto-approve:
     name: Auto-approve PR with only go.sum changes
     runs-on: ubuntu-latest
