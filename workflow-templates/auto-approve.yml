@@ -3,7 +3,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest  # windows-latest | macos-latest
+    runs-on: ubuntu-latest
     name: Test changed-files
     steps:
       - uses: actions/checkout@v3
@@ -23,5 +23,13 @@ jobs:
           echo "One or more files in the go.mod folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       
-      - name: Auto-approve PR with only go.sum changes
+     auto-approve:
+       name: Auto-approve PR with only go.sum changes
+       runs-on: ubuntu-latest
+       needs: [build]
+       permissions:
+         pull-requests: write
+       steps:
+         - uses: hmarr/auto-approve-action@v3
+        
         
