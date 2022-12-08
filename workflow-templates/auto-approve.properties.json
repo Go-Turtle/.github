@@ -1,0 +1,13 @@
+{
+    "name": "Turtle Organization Workflow",
+    "description": "Turtle Organization Generic Workflow that auto-approves PRs with only backend lib version update.",
+    "iconName": "example-icon",
+    "categories": [
+        "Go"
+    ],
+    "filePatterns": [
+        "package.json$",
+        "^Dockerfile",
+        ".*\\.md$"
+    ]
+}
