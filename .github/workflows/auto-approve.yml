@@ -22,6 +22,12 @@ jobs:
           echo "One or more files in the go.mod folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       
+      - name: Install dependencies   # Install all the dependencies
+        run: |
+          go version
+          git config --global url."https://${{ secrets.GIT_ACCESS_TOKEN }}:x-oauth-basic@github.com/go-turtle".insteadOf "https://github.com/go-turtle"
+          go get -u golang.org/x/lint/golint
+      
       - name: Run build   # Run build of the application
         run: go build ./...
         
