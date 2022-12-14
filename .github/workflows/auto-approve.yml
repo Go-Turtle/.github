@@ -5,6 +5,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     name: Test changed-files
+    outputs:
+      output1: ${{ steps.changed-files-specific.outputs.any_changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,7 +36,7 @@ jobs:
   auto-approve:
     name: Auto-approve PR with only go.sum changes
     runs-on: ubuntu-latest
-    if: jobs.build.steps.changed-files-specific.outputs.any_changed == 'true'
+    if: needs.build.outputs.output1 == 'true'
     needs: [build]
     permissions:
       pull-requests: write
