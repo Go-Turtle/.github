@@ -36,7 +36,7 @@ jobs:
   auto-approve:
     name: Auto-approve PR with only go.sum changes
     runs-on: ubuntu-latest
-    if: needs.build.outputs.output1 == 'true'
+    if: needs.build.outputs.has_go_mod_changes == 'true'
     needs: [build]
     permissions:
       pull-requests: write
