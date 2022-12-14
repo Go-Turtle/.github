@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test changed-files
     outputs:
-      has_go_mod_changes : ${{ steps.changed-files-specific.outputs.any_changed }}
+      has_go_mod_changes : ${{ steps.changed-files-specific.outputs.only_changed }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -34,7 +34,7 @@ jobs:
         run: go build ./...
         
   auto-approve:
-    name: Auto-approve PR with only go.sum changes
+    name: Auto-approve PR with only go.mod changes
     runs-on: ubuntu-latest
     if: needs.build.outputs.has_go_mod_changes == 'true'
     needs: [build]
