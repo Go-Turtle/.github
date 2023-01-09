@@ -18,6 +18,7 @@ jobs:
         with:
           files: |
             go.mod/**
+            go.sum
 #       - name: Run step if any file(s) in the go.mod folder change
 #         if: steps.changed-files-specific.outputs.any_changed == 'true'
 #         run: |
