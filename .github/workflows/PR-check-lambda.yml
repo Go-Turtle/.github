@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+    inputs:
+      PACKAGE_NAME:
+        required: true
+        type: string
+      HANDLER_NAME:
+        required: true
+        type: string
+         
+jobs:
+ build:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Go environment
+      uses: actions/setup-go@v2.1.3
+      with:
+        go-version: 1.17.8
+        stable: true
+
+    - name: Build go application
+      run: |
+        go version
+        mkdir -p bin/${{ inputs.PACKAGE_NAME }}
+        mkdir -p artifacts/${{ inputs.PACKAGE_NAME }}
+        git config --global url."https://${{ secrets.GIT_ACCESS_TOKEN }}:x-oauth-basic@github.com/go-turtle".insteadOf "https://github.com/go-turtle"
+        GOOS=linux GOARCH=amd64 go build -o ./bin/${{ inputs.PACKAGE_NAME }} ./cmd/${{ inputs.PACKAGE_NAME }}
+        zip -j ./artifacts/${{ inputs.HANDLER_NAME }}.zip ./bin/${{ inputs.PACKAGE_NAME }}/${{ inputs.PACKAGE_NAME }}
