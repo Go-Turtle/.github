@@ -83,4 +83,4 @@ jobs:
         echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
     - name: Force new update
       run: |
-        aws ecs update-service --cluster dev-ecs --service ${{ inputs.SERVICE_NAME }} --force-new-deployment --region ${{ inputs.AWS_REGION }}
+        aws ecs update-service --cluster prod-ecs --service ${{ inputs.SERVICE_NAME }} --force-new-deployment --region ${{ inputs.AWS_REGION }}
