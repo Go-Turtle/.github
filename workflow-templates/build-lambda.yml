@@ -40,13 +40,13 @@ jobs:
         mkdir -p bin/${{ inputs.PACKAGE_NAME }}
         mkdir -p artifacts/${{ inputs.PACKAGE_NAME }}
         git config --global url."https://${{ secrets.GIT_ACCESS_TOKEN }}:x-oauth-basic@github.com/go-turtle".insteadOf "https://github.com/go-turtle"
-        GOOS=linux GOARCH=amd64 go build -o ./bin/${{ inputs.PACKAGE_NAME }} ./cmd/${{ inputs.PACKAGE_NAME }}
-        zip -j ./artifacts/${{ inputs.HANDLER_NAME }}.zip ./bin/${{ inputs.PACKAGE_NAME }}/${{ inputs.PACKAGE_NAME }}
+        GOOS=linux GOARCH=amd64 go build -tags lambda.norpc -o ./bin/${{ inputs.PACKAGE_NAME }}/bootstrap ./cmd/${{ inputs.PACKAGE_NAME }}
+        zip -j ./artifacts/${{ inputs.PACKAGE_NAME }}/bootstrap.zip ./bin/${{ inputs.PACKAGE_NAME }}/bootstrap
     - name: Push Zip to S3
       uses: jakejarvis/s3-sync-action@master
       env:
-        SOURCE_DIR: './artifacts'
-        DEST_DIR: 'lambda'
+        SOURCE_DIR: ./artifacts/${{ inputs.PACKAGE_NAME }}
+        DEST_DIR: lambda/${{ inputs.PACKAGE_NAME }}
         AWS_REGION: ${{ inputs.AWS_REGION }}
         AWS_S3_BUCKET: ${{ inputs.AWS_S3_BUCKET }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -59,4 +59,4 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ inputs.AWS_REGION }}
         function_name: ${{ inputs.HANDLER_NAME }}
-        zip_file: ./artifacts/${{ inputs.HANDLER_NAME }}.zip
+        zip_file: ./artifacts/${{ inputs.PACKAGE_NAME }}/bootstrap.zip
