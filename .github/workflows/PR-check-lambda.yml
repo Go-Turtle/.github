@@ -26,5 +26,5 @@ jobs:
         mkdir -p bin/${{ inputs.PACKAGE_NAME }}
         mkdir -p artifacts/${{ inputs.PACKAGE_NAME }}
         git config --global url."https://${{ secrets.GIT_ACCESS_TOKEN }}:x-oauth-basic@github.com/go-turtle".insteadOf "https://github.com/go-turtle"
-        GOOS=linux GOARCH=amd64 go build -o ./bin/${{ inputs.PACKAGE_NAME }} ./cmd/${{ inputs.PACKAGE_NAME }}
-        zip -j ./artifacts/${{ inputs.HANDLER_NAME }}.zip ./bin/${{ inputs.PACKAGE_NAME }}/${{ inputs.PACKAGE_NAME }}
+        GOOS=linux GOARCH=amd64 go build -tags lambda.norpc -o ./bin/${{ inputs.PACKAGE_NAME }}/bootstrap ./cmd/${{ inputs.PACKAGE_NAME }}
+        zip -j ./artifacts/${{ inputs.PACKAGE_NAME }}/bootstrap.zip ./bin/${{ inputs.PACKAGE_NAME }}/bootstrap
