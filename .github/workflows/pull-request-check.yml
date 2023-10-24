@@ -8,6 +8,11 @@ jobs:
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v3
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+          stable: true
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
