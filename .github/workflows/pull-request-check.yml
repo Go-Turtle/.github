@@ -8,17 +8,13 @@ jobs:
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v3
-      - name: Setup Go
-        uses: actions/setup-go@v3
         with:
-          go-version: 1.18
+          fetch-depth: 0
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: reviewdog/action-golangci-lint@v2
         with:
-          version: v1.54
-          args: --timeout=5m
-          skip-cache: false
-          
+          golangci_lint_flags: "--enable-all --exclude-use-default=false"
+
   test:
     runs-on: ubuntu-latest
     needs: [golangci-lint]
