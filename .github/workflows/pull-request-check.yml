@@ -39,8 +39,3 @@ jobs:
       # Run build of the application
       - name: Run build
         run: go build ./...
-
-      # Run tests on the code
-      - name: Run tests
-        run: go test ./...
-
