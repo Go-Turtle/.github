@@ -34,10 +34,6 @@ jobs:
         # Whether to download only stable versions
         stable: true
 
-# 🔥 FIX: Tidy go.mod before any build to avoid exit code 1
-    - name: Tidy go modules
-      run: go mod tidy
-      
     - name: Build go application
       run: |
         go version
